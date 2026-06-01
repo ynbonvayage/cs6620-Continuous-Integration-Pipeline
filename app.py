@@ -150,6 +150,7 @@ def serve_audio_segment():
 
 @app.route('/')
 def hello():
+    from datetime import datetime
     return f'''
     <h1>Hello from Automated CI/CD Pipeline!</h1>
     <p><strong>Version:</strong> 2.0 - Automated Deployment</p>
