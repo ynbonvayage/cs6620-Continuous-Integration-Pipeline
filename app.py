@@ -1,4 +1,4 @@
-# Version: 1.0.1
+# Version: 2.0.1
 # Built with GitHub Actions
 import os
 import re
@@ -141,12 +141,22 @@ def serve_audio_segment():
         app.logger.error(f"Error extracting audio segment: {e}")
         return f"Error extracting audio segment: {str(e)}", 500
 
+# @app.route('/')
+# def index():
+#     """
+#     Renders the main HTML page for the client-side audio player.
+#     """
+#     return render_template('index.html') 
+
 @app.route('/')
-def index():
-    """
-    Renders the main HTML page for the client-side audio player.
-    """
-    return render_template('index.html') 
+def hello():
+    return f'''
+    <h1>Hello from Automated CI/CD Pipeline!</h1>
+    <p><strong>Version:</strong> 2.0 - Automated Deployment</p>
+    <p><strong>Deployed via:</strong> GitHub Actions + AWS SSM</p>
+    <p><strong>Build Date:</strong> {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</p>
+    <p><strong>Assignment:</strong> Automated EC2 Deployment</p>
+    '''
 
 @app.route('/select_directory', methods=['POST'])
 def select_directory():
@@ -503,6 +513,15 @@ def delete_labels():
             return jsonify({"success": False, "message": "No labeled segments file found to delete"})
     except Exception as e:
         return jsonify({"success": False, "message": f"Error deleting labels file: {str(e)}"})
+
+@app.route('/health')
+def health():
+    return {
+        'status': 'healthy',
+        'version': '2.0',
+        'deployment_method': 'automated',
+        'timestamp': datetime.now().isoformat()
+    }
 
 
 # Auto-load CSV and audio files on startup
